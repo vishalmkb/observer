@@ -1,15 +1,20 @@
-from observer import Subject, Subscriber
+from observer import Subject, Subscriber, Publisher
 
 class Subscriber(Subscriber):
 	def __init__(self, name):
 		super().__init__(name)
+		self.publisher = Publisher(name)
 
 	def getNotified(self, _update):
-		print("{} got {} message".format(self.name, _update))
+		print("{} got {} message in {} group".format(self.name, _update['message'], _update['group']))
+
+	def publish(self, _subject, _update):
+		self.publisher.addSubject(_subject)
+		self.publisher.publish(_subject, _update)
 
 
 Subjects = {}
-subscribers = {}
+Subscribers = {}
 
 while(True):
 
@@ -22,20 +27,20 @@ while(True):
 			name = Subject(name)
 			Subjects[name_cpy] = name
 			#print(Subjects)
-			print("Subject "+name_cpy+" successfully created")
-		except Exception as e:
-			print(e)
-			print("Subject "+name_cpy+" couldn't be created")
+			print("\n[CREATED] Subject "+name_cpy+" successfully created")
+		except:
+			print("[ERROR] Subject "+name_cpy+" couldn't be created")
 
 	elif(element_type == 2):
 		name = input("Enter the User name : ")
 		name_cpy = name
 		try:
 			name = Subscriber(name)
-			subscribers[name_cpy] = name
-			#print(subscribers)
+			Subscribers[name_cpy] = name
+			#print(Subscribers)
 			print("User "+name_cpy+" successfully created")
-		except:
+		except Exception as e:
+			print(e)
 			print("User "+name_cpy+" couldn't be created")
 
 
@@ -43,15 +48,17 @@ while(True):
 		subs_name = input("Enter the User's name : ")
 		pub_name = input("Enter the Group's name : ")
 		#print(Subjects)
-		#print(subscribers)
-		Subjects[pub_name].register(subscribers[subs_name])
+		#print(Subscribers)
+		Subjects[pub_name].register(Subscribers[subs_name])
 
 	elif(element_type == 4):
 		subs_name = input("Enter the User's name : ")
 		pub_name = input("Enter the Group's name : ")
-		Subjects[pub_name].unregister(subscribers[subs_name])
+		Subjects[pub_name].unregister(Subscribers[subs_name])
 
 	elif(element_type == 5):
-		pub_name = input("Enter the User's name : ")
-		val = input("Enter the content : ")
-		Subjects[pub_name].update(val)
+		user_name = input("Enter the User's name : ")
+		grp_name = input("Enter the Group's name : ")
+		message = input("Enter the content : ")
+		val = {'message':message, 'group':grp_name}
+		Subscribers[user_name].publish(Subjects[grp_name], val)
