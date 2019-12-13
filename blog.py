@@ -3,7 +3,7 @@ publishers = {}
 subscribers = {}
 while(True):
 
-	element_type = int(input("\n\n1. Create a publisher \n2. Create a subscriber \n3. Update content in publisher \n4. Register a subscriber to publisher \n5. Unregister a subscriber\n"))
+	element_type = int(input("\n\n1. Create a publisher \n2. Create a subscriber \n3. Register a subscriber to publisher \n4. Unregister a subscriber\n5. Update content in publisher \n"))
 		
 	if(element_type == 1):
 		name = input("Enter the publisher name : ")
@@ -27,22 +27,20 @@ while(True):
 		except:
 			print("Subscriber "+name_cpy+" couldn't be created")
 
+
 	elif(element_type == 3):
-		pub_name = input("Enter the publisher's name : ")
-		val = input("Enter the content : ")
-		publishers[pub_name].dispatch(val)
-
-
-	elif(element_type == 4):
 		subs_name = input("Enter the subscriber's name : ")
 		pub_name = input("Enter the publisher's name : ")
 		#print(publishers)
 		#print(subscribers)
 		publishers[pub_name].register(subscribers[subs_name])
 
-	elif(element_type == 5):
+	elif(element_type == 4):
 		subs_name = input("Enter the subscriber's name : ")
 		pub_name = input("Enter the publisher's name : ")
 		publishers[pub_name].unregister(subscribers[subs_name])
 
-
+	elif(element_type == 5):
+		pub_name = input("Enter the publisher's name : ")
+		val = input("Enter the content : ")
+		publishers[pub_name].update(val)

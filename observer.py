@@ -1,7 +1,7 @@
 class Subscriber:
     def __init__(self, name):
         self.name = name
-    def update(self, message):
+    def getNotified(self, message):
         print('{} got message "{}"'.format(self.name, message))
         
 class Publisher:
@@ -11,8 +11,8 @@ class Publisher:
         self.subscribers.add(who)
     def unregister(self, who):
         self.subscribers.discard(who)
-    def dispatch(self, message):
+    def update(self, message):
         for subscriber in self.subscribers:
-            subscriber.update(message)
+            subscriber.getNotified(message)
 
 
