@@ -13,45 +13,45 @@ subscribers = {}
 
 while(True):
 
-	element_type = int(input("\n\n1. Create a Blog \n2. Create a subscriber \n3. Register a subscriber to Subject \n4. Unregister a subscriber \n5. Update content in Blog \n"))
+	element_type = int(input("\n\n1. Create a group \n2. Create a user \n3. Register a user to group \n4. Unregister a user to group\n5. Send message in group \n"))
 		
 	if(element_type == 1):
-		name = input("Enter the Blog name : ")
+		name = input("Enter the group name : ")
 		name_cpy = name
 		try:
 			name = Subject(name)
 			Subjects[name_cpy] = name
 			#print(Subjects)
-			print("Blog "+name_cpy+" successfully created")
+			print("Subject "+name_cpy+" successfully created")
 		except Exception as e:
 			print(e)
-			print("Blog "+name_cpy+" couldn't be created")
+			print("Subject "+name_cpy+" couldn't be created")
 
 	elif(element_type == 2):
-		name = input("Enter the subscriber name : ")
+		name = input("Enter the User name : ")
 		name_cpy = name
 		try:
 			name = Subscriber(name)
 			subscribers[name_cpy] = name
 			#print(subscribers)
-			print("Subscriber "+name_cpy+" successfully created")
+			print("User "+name_cpy+" successfully created")
 		except:
-			print("Subscriber "+name_cpy+" couldn't be created")
+			print("User "+name_cpy+" couldn't be created")
 
 
 	elif(element_type == 3):
-		subs_name = input("Enter the subscriber's name : ")
-		pub_name = input("Enter the Blog's name : ")
+		subs_name = input("Enter the User's name : ")
+		pub_name = input("Enter the Group's name : ")
 		#print(Subjects)
 		#print(subscribers)
 		Subjects[pub_name].register(subscribers[subs_name])
 
 	elif(element_type == 4):
-		subs_name = input("Enter the subscriber's name : ")
-		pub_name = input("Enter the Blog's name : ")
+		subs_name = input("Enter the User's name : ")
+		pub_name = input("Enter the Group's name : ")
 		Subjects[pub_name].unregister(subscribers[subs_name])
 
 	elif(element_type == 5):
-		pub_name = input("Enter the Blog's name : ")
+		pub_name = input("Enter the User's name : ")
 		val = input("Enter the content : ")
 		Subjects[pub_name].update(val)
