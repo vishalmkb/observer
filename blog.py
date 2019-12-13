@@ -5,7 +5,7 @@ class Subscriber(Subscriber):
 		super().__init__(name)
 
 	def getNotified(self, _update):
-		print("{} got {} message".format(self.name, _update))
+		print("{} got '{}' message".format(self.name, _update))
 
 
 Subjects = {}
@@ -44,14 +44,28 @@ while(True):
 		pub_name = input("Enter the Blog's name : ")
 		#print(Subjects)
 		#print(subscribers)
-		Subjects[pub_name].register(subscribers[subs_name])
+		try:
+			Subjects[pub_name].register(subscribers[subs_name])
+			print("Subscriber "+subs_name+" successfully registered to "+pub_name);
+		except:
+			print("Registration failed")
+
 
 	elif(element_type == 4):
 		subs_name = input("Enter the subscriber's name : ")
 		pub_name = input("Enter the Blog's name : ")
-		Subjects[pub_name].unregister(subscribers[subs_name])
+		try:
+			Subjects[pub_name].unregister(subscribers[subs_name])
+			print("Subscriber "+subs_name+" successfully unregistered to "+pub_name);
+		except:
+			print("Unregister failed")
 
 	elif(element_type == 5):
 		pub_name = input("Enter the Blog's name : ")
 		val = input("Enter the content : ")
-		Subjects[pub_name].update(val)
+		try:
+			print("Content updated");
+			Subjects[pub_name].update(val)
+		except:
+			print("Couldn't update content")
+
