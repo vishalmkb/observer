@@ -27,7 +27,7 @@ while(True):
 			name = Subject(name)
 			Subjects[name_cpy] = name
 			#print(Subjects)
-			print("\n[CREATED] Subject "+name_cpy+" successfully created")
+			print("[CREATED] Subject "+name_cpy+" successfully created")
 		except:
 			print("[ERROR] Subject "+name_cpy+" couldn't be created")
 
@@ -38,10 +38,10 @@ while(True):
 			name = Subscriber(name)
 			Subscribers[name_cpy] = name
 			#print(Subscribers)
-			print("User "+name_cpy+" successfully created")
+			print("[CREATED] User "+name_cpy+" successfully created")
 		except Exception as e:
 			print(e)
-			print("User "+name_cpy+" couldn't be created")
+			print("[ERROR] User "+name_cpy+" couldn't be created")
 
 
 	elif(element_type == 3):
@@ -49,16 +49,28 @@ while(True):
 		pub_name = input("Enter the Group's name : ")
 		#print(Subjects)
 		#print(Subscribers)
-		Subjects[pub_name].register(Subscribers[subs_name])
+		try:
+			Subjects[pub_name].register(Subscribers[subs_name])
+			print("[SUCCESS] User "+subs_name+" successfully registered to "+pub_name);
+		except:
+			print("[ERROR] Registration failed")
 
 	elif(element_type == 4):
 		subs_name = input("Enter the User's name : ")
 		pub_name = input("Enter the Group's name : ")
-		Subjects[pub_name].unregister(Subscribers[subs_name])
+		try:
+			Subjects[pub_name].unregister(Subscribers[subs_name])
+			print("[SUCCESS] User "+subs_name+" successfully unregistered to "+pub_name);
+		except:
+			print("[ERROR] Unregister failed")
 
 	elif(element_type == 5):
 		user_name = input("Enter the User's name : ")
 		grp_name = input("Enter the Group's name : ")
 		message = input("Enter the content : ")
 		val = {'message':message, 'group':grp_name}
-		Subscribers[user_name].publish(Subjects[grp_name], val)
+		try:
+			Subscribers[user_name].publish(Subjects[grp_name], val)
+			print("[SUCESS] User "+user_name+" sent the message successfully")
+		except:
+			print("[ERROR] Failed to send message")

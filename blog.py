@@ -9,7 +9,7 @@ class Subscriber(Subscriber):
 
 
 Subjects = {}
-subscribers = {}
+Subscribers = {}
 
 while(True):
 
@@ -22,50 +22,50 @@ while(True):
 			name = Subject(name)
 			Subjects[name_cpy] = name
 			#print(Subjects)
-			print("Blog "+name_cpy+" successfully created")
+			print("[CREATED] Blog "+name_cpy+" successfully created")
 		except Exception as e:
 			print(e)
-			print("Blog "+name_cpy+" couldn't be created")
+			print("[ERROR] Blog "+name_cpy+" couldn't be created")
 
 	elif(element_type == 2):
 		name = input("Enter the subscriber name : ")
 		name_cpy = name
 		try:
 			name = Subscriber(name)
-			subscribers[name_cpy] = name
-			#print(subscribers)
-			print("Subscriber "+name_cpy+" successfully created")
+			Subscribers[name_cpy] = name
+			#print(Subscribers)
+			print("[CREATED] Subscriber "+name_cpy+" successfully created")
 		except:
-			print("Subscriber "+name_cpy+" couldn't be created")
+			print("[ERROR] Subscriber "+name_cpy+" couldn't be created")
 
 
 	elif(element_type == 3):
 		subs_name = input("Enter the subscriber's name : ")
 		pub_name = input("Enter the Blog's name : ")
 		#print(Subjects)
-		#print(subscribers)
+		#print(Subscribers)
 		try:
-			Subjects[pub_name].register(subscribers[subs_name])
-			print("Subscriber "+subs_name+" successfully registered to "+pub_name);
+			Subjects[pub_name].register(Subscribers[subs_name])
+			print("[SUCCESS] Subscriber "+subs_name+" successfully registered to "+pub_name);
 		except:
-			print("Registration failed")
+			print("[ERROR] Registration failed")
 
 
 	elif(element_type == 4):
 		subs_name = input("Enter the subscriber's name : ")
 		pub_name = input("Enter the Blog's name : ")
 		try:
-			Subjects[pub_name].unregister(subscribers[subs_name])
-			print("Subscriber "+subs_name+" successfully unregistered to "+pub_name);
+			Subjects[pub_name].unregister(Subscribers[subs_name])
+			print("[SUCCESS] Subscriber "+subs_name+" successfully unregistered to "+pub_name);
 		except:
-			print("Unregister failed")
+			print("[ERROR] Unregister failed")
 
 	elif(element_type == 5):
 		pub_name = input("Enter the Blog's name : ")
 		val = input("Enter the content : ")
 		try:
-			print("Content updated");
+			print("[SUCCESS] Content updated");
 			Subjects[pub_name].update(val)
 		except:
-			print("Couldn't update content")
+			print("[ERROR] Couldn't update content")
 
