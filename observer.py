@@ -5,7 +5,13 @@ class Subject:
         self.data = None
         self.subscribers = set()
 
+    def data_update(self, _update):
+        pass
+
     def update(self, _update):
+
+        self.data_update(_update)
+
         for _subscriber in self.subscribers:
             _subscriber.getNotified(_update)
         
@@ -14,7 +20,7 @@ class Subject:
 
     def unregister(self, _subscriber):
         self.subscribers.discard(_subscriber)
-        
+
 
 class Subscriber:
 
@@ -24,7 +30,7 @@ class Subscriber:
     def getNotified(self, _update):
         pass
 
-    
+
 class Publisher:
 
     def __init__(self, name):
@@ -32,4 +38,7 @@ class Publisher:
         self.subjects = dict()
 
     def publish(self, _subject, _update):
-        _subject.update(_update)
+        if (_subject in self.subjects):
+            _subject.update(_update)
+        else:
+            print("[Access Denied], you are not authorized to send updates in this group")
